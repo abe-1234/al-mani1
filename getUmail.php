@@ -1,10 +1,19 @@
 <?php
 
 include("db.php");
-$fname=mysqli_real_escape_string($mysqli,$_POST["fname"]);
-$lname=mysqli_real_escape_string($mysqli,$_POST["lname"]);
+$mail=mysqli_real_escape_string($mysqli,$_POST["mail"]);
 
-$umail = $fname.$lname."@umail.utm.ac.mu";
-echo $umail;
+$query = "SELECT * FROM tbltutor WHERE TEmail = '$mail' AND Tstatus = 'active'";
+$result = mysqli_query($mysqli,$query);
+$num = mysqli_num_rows($result);
+		
+if(!$num)
+{
+	echo "Correct mail";
+}
+else
+{
+	echo "Email already exist!!";
+}
 
 ?>

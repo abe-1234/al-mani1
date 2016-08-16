@@ -1,21 +1,4 @@
-<?php 
-						session_start();
-						if(isset($_SESSION['login']) == false)
-						{
-						   
-							echo"<script>window.location.href = '../UTM/login.php';</script>";
-                        }
-                        else
-						{
-							$id = $_SESSION['id'];
-							include("db.php");
-							$query = "SELECT * FROM tbladmin WHERE A_ID = '$id'";
-							$result = mysqli_query($mysqli,$query);
-							$db_field = mysqli_fetch_assoc($result);
-							
-							
-		                }					
-						?>
+
 
 <div style="background-color:#AED6F1" class="header navbar navbar-default navbar-fixed-top">	
 		<div class="header-top">

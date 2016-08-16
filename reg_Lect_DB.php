@@ -13,13 +13,26 @@ $gender=($_POST["gender"]);
 $address=($_POST["lsublocality"]);
 $email=mysqli_real_escape_string($mysqli,$_POST["lmail"]);
 $pw=mysqli_real_escape_string($mysqli,$_POST["lpass"]);
-$umail=mysqli_real_escape_string($mysqli,$_POST["lumail"]);
 $mode=($_POST["mode"]);
-$School=($_POST["lschool"]);
-$dept=($_POST["ldept"]);
-$postn=($_POST["lposition"]);
+$dept; 
+$postn;
 
+if(!isset($_POST["lposition"])){
+	$postn = "Lecturer";
+}
+else 
+{
+	$postn = ($_POST["lposition"]);
+}
 
+if(!isset($_POST["ldept"])){
+	$dept = "11";
+}
+else 
+{
+	$dept = ($_POST["ldept"]);
+	
+}
 
 $salt="ikrngngrngikrwngik925820496802986002+325i925fkjskjng";
 $passwrd=$pw.$salt;
@@ -29,15 +42,15 @@ $pwencr= password_hash($hashed_pw,PASSWORD_DEFAULT,['salt' => mcrypt_create_iv(2
 
 
 	//check if user exist already
-	$query="select * from tbltutor where TEmail='$email' and TUmail='$umail' and TNIC='$NIC'";
+	$query="select * from tbltutor where TEmail='$email' and TNIC='$NIC'";
 	$result=mysqli_query($mysqli,$query) or die('error');
 	if (mysqli_num_rows($result))
 	{
 	     echo('Email Already registered!!');
 	}
-else{
+   else{
   
-    $query="INSERT into tbltutor (TFName,TLName,TEmail,School_ID,SublocalityID,DOB,Tmode,TUmail,TPhone,TMobile,TPassword,Tstatus,TMarital_Sta,TSex,Tdept,Tpositn,TDate_reg,TNIC) values ('$FName','$LName','$email','$School','$address','$DOB','$mode','$umail','$tel','$mob','$pwencr','active','$marital','$gender','$dept','$postn',now(),'$NIC')";
+    $query="INSERT into tbltutor (TFName,TLName,TEmail,SublocalityID,DOB,Tmode,TPhone,TMobile,TPassword,Tstatus,TMarital_Sta,TSex,Dept_ID,Tpositn,TDate_reg,TNIC) values ('$FName','$LName','$email','$address','$DOB','$mode','$tel','$mob','$pwencr','active','$marital','$gender','$dept','$postn',now(),'$NIC')";
 	
 	if (!mysqli_query($mysqli,$query))
 	{
@@ -74,7 +87,7 @@ else{
 		  <div align="center">
 			<a href="localhost:8080/UTM/index.php"><img src="UTM.png" height="90" width="340" ></a>
 		  </div>
-		  <p>Your Umail:'.$umail.'</p>
+
 		  <p>Your Username:'.$email.'</p>
 		  <p>Your password:'.$pw.'</p>
 		  <p>You are advise to change your password for security reason</p>

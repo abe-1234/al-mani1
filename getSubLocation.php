@@ -7,7 +7,7 @@ $query = "SELECT * FROM tblsublocality WHERE CityID='".$_POST['CityID']."'";
 $result=$mysqli->query($query);
 
 ?>
- <option disabled selected>Select Location</option> 
+ <option disabled selected>Select Locality</option> 
 <?php
 	while ($rs=$result->fetch_assoc()) {
 
